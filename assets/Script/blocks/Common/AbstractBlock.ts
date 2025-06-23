@@ -4,6 +4,7 @@ const { ccclass } = cc._decorator;
 
 @ccclass
 export abstract class AbstractBlock extends cc.Component {
+
     public gridX: number = -1;
     public gridY: number = -1;
     
@@ -20,44 +21,12 @@ export abstract class AbstractBlock extends cc.Component {
         this.explosionEffect = effect;
     }
 
+    public abstract getAdjacentBlocks(count: number, bombEffect:boolean, rocketEffect: boolean, isVertical: boolean): AbstractBlock[] 
 
-    public getAdjacentBlocks(count:number = 1, bombFire:boolean = false): AbstractBlock[] {
-        if (!this.gridManager) return [];
-        
-        const directions = this.getSearchDirections(count,bombFire);
-        const adjacent: AbstractBlock[] = [];
-        
-        directions.forEach(dir => {
-            const block = this.gridManager.getBlockAt(this.gridX + dir.dx, this.gridY + dir.dy);
-            if (block) {
-                adjacent.push(block);
-            }
-        });
-    
-        return adjacent;
-    }
-
-    private getSearchDirections(count: number, bombFire:boolean = false): {dx: number, dy: number}[] {
-        const directions: {dx: number, dy: number}[] = [];
-        
-        // Генерируем все возможные смещения в радиусе count
-        for (let dy = -count; dy <= count; dy++) {
-            for (let dx = -count; dx <= count; dx++) {
-
-                if (dx === 0 && dy === 0) continue;
-                if (!bombFire && dx !== 0 && dy !== 0) continue;
-                // Добавляем направление
-                directions.push({dx, dy});
-            }
-        }
-        
-        return directions;
-    }
-
-    protected createExplosionAt(position: cc.Vec3): void {
+    protected createExplosionAt(position: cc.Vec2): void {
         if (!this.explosionEffect) return;
 
-            const parentNode = cc.Canvas.instance?.node || cc.director.getScene();
+            const parentNode = this.node.parent
             if (!parentNode) return;
 
             const explosion = cc.instantiate(this.explosionEffect);
@@ -66,8 +35,7 @@ export abstract class AbstractBlock extends cc.Component {
     }
 
 
-    private runExplosion(explosion: cc.Node, parentNode: cc.Node ,position: cc.Vec3) {
-
+    private runExplosion(explosion: cc.Node, parentNode: cc.Node ,position: cc.Vec2) {        
             explosion.setPosition(position);
             parentNode.addChild(explosion);
 
@@ -92,6 +60,24 @@ export abstract class AbstractBlock extends cc.Component {
             )
         );
         
+    }
+
+        protected destroyBlocks(blocks: AbstractBlock[], clickedBlock: AbstractBlock): void {
+            if (!blocks || blocks.length < 2) return;
+
+            blocks.forEach((block, index) => {
+                if (block && block.node) {
+
+                    this.createExplosionAt(block.node.getPosition());
+                    
+                        block.node.runAction(cc.delayTime(index * 0.05));
+
+                }
+            });
+        
+            if (this.gridManager) {               
+                this.gridManager.removeBlocks(blocks, clickedBlock, 10);
+            }
     }
 
 }

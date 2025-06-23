@@ -34,13 +34,16 @@ export default class Game extends cc.Component {
     @property(cc.Node)
     private busters: cc.Node = null;
 
+    @property(GridManager)
+    private gridManager: GridManager = null;
+
+    private canvas:cc.Component;
+
     private finishGame: FinishGame = null;
 
     private currentCountMoves: number;
 
     private currentPoints: number; 
-
-    private gridManager:GridManager;
 
     private busterManager:BusterManager;
 
@@ -50,23 +53,24 @@ export default class Game extends cc.Component {
 
     private bombPower:number = 1;
     
-    onLoad() {
-        this.gridManager = this.getComponent('GridManager')       
+    onLoad() {  
+        const canvasNode = this.node.parent
+        this.canvas = canvasNode.getComponent(cc.Canvas)
         this.finishGameNode.on('restart-game',this.initGame,this)
         this.finishGame = this.finishGameNode.getComponent('FinishGame');
-        this.busterManager = this.busters.getComponent('BusterManager')        
+        this.busterManager = this.busters.getComponent('BusterManager') 
+        this.gridManager.onLoad()      
         this.initGame();   
     }
 
-    private initGame(): void {
+    private initGame(): void {       
         if (!this.gridManager.validateSettings()) return;
         this.currentCountMoves = this.countMoves;
         this.busterManager.init()
         this.currentPoints = 0;
         this.movesTextBlock.string = this.currentCountMoves.toString() 
-        this.targetTextBlock.string = `/ ${this.targetPonts}`   
+        this.targetTextBlock.string = `/${this.targetPonts}`   
         this.pontsTextBlock.string = `${this.currentPoints}` 
-
         this.gridManager.generateGrid();
         
     }

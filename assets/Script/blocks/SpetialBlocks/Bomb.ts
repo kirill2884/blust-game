@@ -1,41 +1,45 @@
 import { AbstractBlock } from "../Common/AbstractBlock";
+import { SpecialBlock } from "../Common/SpecialBlock";
 
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class Bomb extends AbstractBlock {
+export default class Bomb extends SpecialBlock {
+  
+   
+    @property({type:cc.Integer})
+    power: number = 1;
 
-    onBlockClick(): void {
-        const connectedBlocks = this.getAdjacentBlocks(1,true);
-        connectedBlocks.push(this)
-        console.log(connectedBlocks);
-        this.highlightBloks(connectedBlocks);
-        this.scheduleOnce(() => this.destroyBlocks(connectedBlocks), 0.5);
-    }
-
-    private highlightBloks(blocks: AbstractBlock[]): void{
-        blocks.forEach((block,index) => {
-            cc.tween(block.node).delay(0.05).to(0.1, {scale:1.2}).to(0.1,{scale:1.0}).start()
-        })
-    }
-
-    private destroyBlocks(blocks: AbstractBlock[]): void {
-        // blocks.forEach(block => {
-        //     this.createExplosion();
-        // })
-
-        if(this.gridManager){
-            this.gridManager.removeBlocks(blocks)
+    protected getSpecialType(): SpecialBlockType {
+        return {
+            bomb:true,
+            power:this.power
         }
     }
 
-    // LIFE-CYCLE CALLBACKS:
+    public getAdjacentBlocks(count: number = 1, bombEffect: boolean = false, rocketEffect: boolean = true, isVertical: boolean = false): AbstractBlock[] {
+        if (!this.gridManager) return [];
+        
+        const directions = [
+            { dx: 0, dy: count },   
+            { dx: count, dy: 0 },  
+            { dx: 0, dy: -count },  
+            { dx: -count, dy: 0 },   
+            { dx: count, dy: count },    
+            { dx: count, dy: -count },  
+            { dx: -count, dy: -count },
+            { dx: -count, dy: count }  
+        ];
 
-    // onLoad () {}
+        const adjacent: AbstractBlock[] = [];
+        
+        directions.forEach(dir => {
+            const block = this.gridManager.getBlockAt(this.gridX + dir.dx, this.gridY + dir.dy);
+            if (block) {
+                adjacent.push(block);
+            }
+        });
 
-    start () {
-
-    }
-
-    // update (dt) {}
+        return adjacent;
+    }  
 }

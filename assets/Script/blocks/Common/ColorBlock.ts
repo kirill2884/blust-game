@@ -1,4 +1,3 @@
-import { SwappedBloks } from "../../interfaces/BlockSoundConfig";
 import { AbstractBlock } from "./AbstractBlock";
 const { ccclass } = cc._decorator;
 
@@ -35,10 +34,42 @@ export abstract class ColorBlock extends AbstractBlock {
     protected findConnected(block: AbstractBlock, blockClass: typeof ColorBlock, visited: Set<AbstractBlock>): void {
         if (visited.has(block)) return;
         visited.add(block);
-        block.getAdjacentBlocks()
+        block.getAdjacentBlocks(1,false,false,false)
             .filter(adjacent => adjacent instanceof blockClass)
             .forEach(block => this.findConnected(block, blockClass, visited));
     }
+
+public getAdjacentBlocks(count: number, bombEffect: boolean = false): AbstractBlock[] {
+    if (!this.gridManager) return [];
+    
+    const directions = [
+        { dx: 0, dy: count },   
+        { dx: count, dy: 0 },   
+        { dx: 0, dy: -count }, 
+        { dx: -count, dy: 0 }   
+    ];
+
+    // диагонали для bombEffect
+    if (bombEffect) {
+        directions.push(
+            { dx: count, dy: count },    
+            { dx: count, dy: -count },  
+            { dx: -count, dy: -count }, 
+            { dx: -count, dy: count }  
+        );
+    }
+
+    const adjacent: AbstractBlock[] = [];
+    
+    directions.forEach(dir => {
+        const block = this.gridManager.getBlockAt(this.gridX + dir.dx, this.gridY + dir.dy);
+        if (block) {
+            adjacent.push(block);
+        }
+    });
+
+    return adjacent;
+}
 
     protected highlightBlocks(blocks: AbstractBlock[]): void {
         blocks.forEach((block, index) => {
@@ -57,28 +88,6 @@ export abstract class ColorBlock extends AbstractBlock {
                 .to(0.1, { scale: 1.0 })
                 .start();
         });
-    }
-
-    protected destroyBlocks(blocks: AbstractBlock[], clickedBlock: AbstractBlock): void {
-            if (!blocks || blocks.length < 2) return;
-
-            // Создаем взрывы для каждого блока
-            blocks.forEach((block, index) => {
-                if (block && block.node) {
-                    // Создаем взрыв в позиции блока
-                    this.createExplosionAt(block.node.position);
-                    
-                    // Можно добавить небольшую задержку между взрывами для эффекта каскада
-                    // if(!bombEffect){
-                        block.node.runAction(cc.delayTime(index * 0.05));
-                    // }
-                }
-            });
-        
-            // Затем удаляем блоки через Game
-            if (this.gridManager) {               
-                this.gridManager.removeBlocks(blocks, clickedBlock, this.countPoints);
-            }
     }
 
     protected bombBusterFire(power:number) {
