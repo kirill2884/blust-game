@@ -179,6 +179,7 @@ export default class GridManager extends cc.Component implements IGridManager{
         } else {
             this.game.setBombBusterActive(true);
         }
+        this.normalizeBlock(this.swappedBlocks.block1)
         this.teleportBusterFinish(false)
     }
 
@@ -202,6 +203,7 @@ export default class GridManager extends cc.Component implements IGridManager{
     private teleportBusterEmitted(){
         
         if(this.game.getTeleportBusterActive()){
+            this.normalizeBlock(this.swappedBlocks.block1)
             this.teleportBusterFinish(false)
         } else {
                 this.game.setTeleportBusterActive(true)
@@ -243,7 +245,7 @@ export default class GridManager extends cc.Component implements IGridManager{
         this.swapBlocks(currentSelection);
 
         Object.keys(currentSelection).forEach(key => {
-            cc.tween(currentSelection[key].node).to(0.1, { scale: 1.0 }).start();
+            this.normalizeBlock(currentSelection[key])
         })
 
         this.setSwappedBlocks(this.getEmptySwappedBlocks());
@@ -308,6 +310,12 @@ export default class GridManager extends cc.Component implements IGridManager{
 
     public clearSwappedBlocks(): void {
         this.swappedBlocks = { block1: null, block2: null };
+    }
+
+    private normalizeBlock(block: AbstractBlock){
+        if(block){
+            cc.tween(block.node).to(0.1, { scale: 1.0 }).start();
+        }  
     }
 
 //===========================SWAPPED BUSTER=========================================
