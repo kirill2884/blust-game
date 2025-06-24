@@ -14,7 +14,7 @@ export default abstract class AbstarctBuster extends cc.Component{
     onLoad () {       
         this.view = this.node.getComponent(BusterView)
         this.initBuster(this.view) 
-        this.node.on(cc.Node.EventType.MOUSE_UP, this.onActivate, this); 
+        this.node.on(cc.Node.EventType.TOUCH_START, this.onActivate, this);
     }
 
     private onActivate (){

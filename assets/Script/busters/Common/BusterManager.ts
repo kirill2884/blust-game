@@ -18,10 +18,7 @@ export class BusterManager extends cc.Component{
             const buster = busterNode.getComponent(AbstarctBuster);
             buster.initBuster(view)
             this.busters.push(buster);
-        })
-        console.log("this.busters");
-        console.log(this.busters);
-        
+        })       
     }
 
     public getBusters():AbstarctBuster[]{
