@@ -20,6 +20,11 @@ export default class BusterBomb extends AbstarctBuster {
             this.remainder--
             this.view.updateRemainder(this.remainder)
         }
+        this.node.off('buster-bomb-finish');
+    }
+
+    onDestroy() {
+        this.node.off('buster-bomb-finish');
     }
         
 }

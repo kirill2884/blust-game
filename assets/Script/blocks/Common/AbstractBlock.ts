@@ -13,6 +13,8 @@ export abstract class AbstractBlock extends cc.Component {
 
     public abstract onBlockClick(): void;
 
+    public abstract getAdjacentBlocks(count: number, bombEffect:boolean, rocketEffect: boolean, isVertical: boolean): AbstractBlock[] 
+
     public setGameController(gridManager: GridManager): void {
         this.gridManager = gridManager;
     }
@@ -20,8 +22,6 @@ export abstract class AbstractBlock extends cc.Component {
     public setExplosionEffect(effect: cc.Prefab): void {
         this.explosionEffect = effect;
     }
-
-    public abstract getAdjacentBlocks(count: number, bombEffect:boolean, rocketEffect: boolean, isVertical: boolean): AbstractBlock[] 
 
     protected createExplosionAt(position: cc.Vec2): void {
         if (!this.explosionEffect) return;
@@ -39,11 +39,9 @@ export abstract class AbstractBlock extends cc.Component {
             explosion.setPosition(position);
             parentNode.addChild(explosion);
 
-            // Начальные параметры для анимации
-            explosion.setScale(0.1); // Начинаем с маленького размера
-            explosion.opacity = 0;   // Полностью прозрачный
+            explosion.setScale(0.1); 
+            explosion.opacity = 0; 
 
-            // Создаем последовательность анимаций
             const scaleUp = cc.scaleTo(0.1, 2.0).easing(cc.easeBackOut());
             const scaleDown = cc.scaleTo(0.2, 0.8).easing(cc.easeSineIn());
             const fadeIn = cc.fadeTo(0.1, 255);
@@ -62,7 +60,7 @@ export abstract class AbstractBlock extends cc.Component {
         
     }
 
-        protected destroyBlocks(blocks: AbstractBlock[], clickedBlock: AbstractBlock): void {
+    protected destroyBlocks(blocks: AbstractBlock[], clickedBlock: AbstractBlock): void {
             if (!blocks || blocks.length < 2) return;
 
             blocks.forEach((block, index) => {

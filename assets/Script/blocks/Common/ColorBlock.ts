@@ -16,7 +16,7 @@ export abstract class ColorBlock extends AbstractBlock {
         }
 
         if(this.gridManager.isTeleportBusterActive()){
-            this.teleportBusterFire(this)
+            this.gridManager.teleportBusterFire(this)
             return
         }
         
@@ -98,32 +98,6 @@ public getAdjacentBlocks(count: number, bombEffect: boolean = false): AbstractBl
         this.gridManager.bombBusterFinish(true)
     
     }
-
-    protected teleportBusterFire(clickedBlock: AbstractBlock): void {
-        const currentSelection = this.gridManager.getSwappedBlocks();
-        
-        if (!currentSelection.block1) {
-            cc.tween(clickedBlock.node).to(0.1, { scale: 1.2 }).start();
-            this.gridManager.setSwappedBlocks({
-                block1: clickedBlock,
-                block2: null
-            });
-        } else {
-            cc.tween(clickedBlock.node).to(0.1, { scale: 1.2 })
-            .call(() => {
-                    currentSelection.block2 = clickedBlock
-                    this.gridManager.swapBlocks(currentSelection);
-                    cc.tween(currentSelection.block1.node).to(0.1, { scale: 1.0 }).start();
-                    cc.tween(clickedBlock.node).to(0.1, { scale: 1.0 }).start();
-                    this.gridManager.setSwappedBlocks({
-                        block1: null,
-                        block2: null
-                    });
-                })
-                .start();
-        }
-    }
-
 
     public getCountPoints(): number{
         return this.countPoints;

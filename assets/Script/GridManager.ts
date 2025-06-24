@@ -45,15 +45,13 @@ export default class GridManager extends cc.Component implements IGridManager{
 
     onLoad() {
         this.tileFactory = this.tileFactoryNode.getComponent(TileFactory);
-        this.tileFactory.onLoad()
-
+        this.tileFactory.onLoad()        
         const pos = this.positionCalculator.calculateGridStartPosition(this.gridWidth, 
                                                             this.gridHeight, 
                                                             this.tileFactory.getTileSize(),
                                                             this.tileFactory.getTilepadding());
         this.startX = pos.startX;
         this.startY = pos.startY;
-
         this.game = this.gameNode.getComponent(Game);
         this.game.busterBomb.on('bomb-buster',this.bombBusterEmitted,this)
         this.game.busterTeleport.on('teleport-buster',this.teleportBusterEmitted,this)
@@ -83,7 +81,6 @@ export default class GridManager extends cc.Component implements IGridManager{
         }
     }
     
-        // Методы для взаимодействия с блоками
         public getBlockAt(x: number, y: number): AbstractBlock | null {
             if (y >= 0 && y < this.grid.length && x >= 0 && x < this.grid[y].length) {
                 return this.grid[y][x];
@@ -116,11 +113,9 @@ export default class GridManager extends cc.Component implements IGridManager{
         }
     
         private processFallingBlocks(): void {
-            // Проходим по всем колонкам
-            for (let x = 0; x < this.gridWidth; x++) {
+           for (let x = 0; x < this.gridWidth; x++) {
                 let emptyY = -1;
                 
-                // Идем снизу вверх
                 for (let y = this.gridHeight - 1; y >= 0; y--) {
                     if (this.grid[y][x] === null && emptyY === -1) {
                         emptyY = y; // Нашли пустое место
@@ -225,25 +220,33 @@ export default class GridManager extends cc.Component implements IGridManager{
         this.clearSwappedBlocks();         
     }
 
-    public getSwappedBlocks(): SwappedBloks {
-    return  {...this.swappedBlocks}
+    public teleportBusterFire(block:AbstractBlock){
+
+        const currentSelection = this.getSwappedBlocks();
+        
+        if (!currentSelection.block1) {
+            cc.tween(block.node).to(0.1, { scale: 1.2 }).start();
+            this.setSwappedBlocks({
+                block1: block,
+                block2: null
+            });
+        } else {
+            cc.tween(block.node).to(0.1, { scale: 1.2 })
+            .call(this.startProcessTeleport.bind(this,block)).start();
+        }
+
     }
 
-    public setFirstSwappedBlock(block: AbstractBlock): void {
-        this.swappedBlocks = { block1: block, block2: null };
-    }
+    private startProcessTeleport(block:AbstractBlock){
+        const currentSelection = this.getSwappedBlocks();
+        currentSelection.block2 = block
+        this.swapBlocks(currentSelection);
 
-    public setSecondSwappedBlock(block: AbstractBlock) {
-        if (!this.swappedBlocks.block1) return;
-        this.swappedBlocks.block2 = block;
-    }
+        Object.keys(currentSelection).forEach(key => {
+            cc.tween(currentSelection[key].node).to(0.1, { scale: 1.0 }).start();
+        })
 
-    public clearSwappedBlocks(): void {
-        this.swappedBlocks = { block1: null, block2: null };
-    }
-
-    public setSwappedBlocks(swappedBlocks:SwappedBloks):void{
-        this.swappedBlocks = swappedBlocks
+        this.setSwappedBlocks(this.getEmptySwappedBlocks());
     }
 
     public swapBlocks(swapped:SwappedBloks){
@@ -265,6 +268,7 @@ export default class GridManager extends cc.Component implements IGridManager{
             cc.error("Invalid blocks for swap!");
             return false;
         }
+
         return true;
     }
 
@@ -289,6 +293,23 @@ export default class GridManager extends cc.Component implements IGridManager{
         block.gridY = targetData.gridY;
         block.node.name = targetData.name;
     }
+
+    private getEmptySwappedBlocks():SwappedBloks {
+        return {block1: null, block2: null}
+    }
+
+    public getSwappedBlocks(): SwappedBloks {
+        return  {...this.swappedBlocks}
+    }
+
+    public setSwappedBlocks(swappedBlocks:SwappedBloks):void{
+        this.swappedBlocks = swappedBlocks
+    }
+
+    public clearSwappedBlocks(): void {
+        this.swappedBlocks = { block1: null, block2: null };
+    }
+
 //===========================SWAPPED BUSTER=========================================
 
 
