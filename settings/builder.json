@@ -1,5 +1,8 @@
 {
-  "excludeScenes": [],
+  "excludeScenes": [
+    "fddc3a87-d26c-4ead-a016-2fe08e133fbb",
+    "7526d2a9-7868-4cd4-818d-1d36b7e05c19"
+  ],
   "orientation": {
     "landscapeLeft": true,
     "landscapeRight": true,
@@ -7,7 +10,7 @@
     "upsideDown": false
   },
   "packageName": "org.cocos2d.helloworld",
-  "startScene": "7526d2a9-7868-4cd4-818d-1d36b7e05c19",
+  "startScene": "cc9ec0cb-040b-4f84-aedb-09e850788cd8",
   "title": "blust_game",
   "webOrientation": "portrait",
   "inlineSpriteFrames": true,
