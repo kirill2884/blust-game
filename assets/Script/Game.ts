@@ -54,7 +54,6 @@ export default class Game extends cc.Component {
     private bombPower:number = 1;
     
     onLoad() {  
-        this.enterFullscreen();
         const canvasNode = this.node.parent
         this.canvas = canvasNode.getComponent(cc.Canvas)
         this.finishGameNode.on('restart-game',this.initGame,this)
@@ -124,16 +123,5 @@ export default class Game extends cc.Component {
     public getBusterManager(){
         return this.busterManager;
     }
-
-    enterFullscreen() {
-    try {
-        if (document.documentElement.requestFullscreen) {
-            document.documentElement.requestFullscreen();
-        } 
-
-    } catch (e) {
-        console.log("Fullscreen error:", e);
-    }
-}
 
 }
