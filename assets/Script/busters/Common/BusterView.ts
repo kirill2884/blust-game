@@ -11,7 +11,8 @@ export default class BusterView extends cc.Component {
     onLoad () {     
         this.infoArea = this.node.getComponent(InfoArea);  
         this.node.on(cc.Node.EventType.MOUSE_DOWN, this.onMouseDown, this);
-        this.node.on(cc.Node.EventType.MOUSE_UP, this.onMouseUp, this);        
+        this.node.on(cc.Node.EventType.MOUSE_UP, this.onMouseUp, this);     
+        this.node.on(cc.Node.EventType.TOUCH_START, this.onMouseUp, this);    
     }
 
     onMouseDown(e:cc.Event.EventTouch){       
@@ -36,5 +37,6 @@ export default class BusterView extends cc.Component {
     public onDestroy(): void {
         this.node.off(cc.Node.EventType.MOUSE_DOWN, this.onMouseDown, this);
         this.node.off(cc.Node.EventType.MOUSE_UP, this.onMouseUp, this);
+        this.node.off(cc.Node.EventType.TOUCH_START, this.onMouseUp, this); 
     }
 }
