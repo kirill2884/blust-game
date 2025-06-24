@@ -2,15 +2,14 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class PlatformLoader extends cc.Component {
-    start() {
+    
+    onLoad() {
         
         const isMobile = this.isMobile();
 
         if (isMobile) {
-            console.log('isMobile');
             cc.director.loadScene("MobileScene");
         } else {
-            console.log('isDesctop');
             cc.director.loadScene("DesktopScene");
         }
     }

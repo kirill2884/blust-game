@@ -295,7 +295,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        0,
+        2.6829999999999927,
         0,
         0,
         0,
@@ -484,15 +484,15 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        448.882,
-        78.984,
+        432.784,
+        -12.24,
         0,
         0,
         0,
         0,
         1,
-        0.826,
-        0.405,
+        0.859,
+        0.537,
         0.99
       ]
     },
@@ -552,8 +552,8 @@
     "positionCalculator": {
       "__id__": 12
     },
-    "gridWidth": 8,
-    "gridHeight": 8,
+    "gridWidth": 7,
+    "gridHeight": 12,
     "tileFactoryNode": {
       "__id__": 14
     },
@@ -615,8 +615,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        0,
-        0,
+        -24.148,
+        -72.443,
         0,
         0,
         0,
@@ -713,8 +713,8 @@
     "positionCalculator": {
       "__id__": 12
     },
-    "tileSize": 130,
-    "tilePadding": 1,
+    "tileSize": 135,
+    "tilePadding": 4,
     "gameGridNode": {
       "__id__": 9
     },
@@ -798,8 +798,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -439.72,
-        -231.944,
+        -463.868,
+        -304.387,
         0,
         0,
         0,
@@ -1720,8 +1720,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -457.144,
-        326.595,
+        -481.292,
+        254.152,
         0,
         0,
         0,
@@ -2365,8 +2365,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        486.001,
-        268.787,
+        424.29,
+        303.667,
         0,
         0,
         0,
@@ -3191,8 +3191,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -462.877,
-        62.959,
+        -487.025,
+        -9.484,
         0,
         0,
         0,
@@ -3282,14 +3282,14 @@
     "node": {
       "__id__": 5
     },
-    "_enabled": true,
+    "_enabled": false,
     "alignMode": 1,
     "_target": null,
     "_alignFlags": 45,
-    "_left": 0,
-    "_right": 0,
-    "_top": 0,
-    "_bottom": 0,
+    "_left": 2.6829999999999785,
+    "_right": -2.6829999999999785,
+    "_top": 4.618527782440651e-14,
+    "_bottom": -4.618527782440651e-14,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,

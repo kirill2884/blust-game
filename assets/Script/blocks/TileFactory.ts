@@ -73,6 +73,8 @@ export default class TileFactory extends cc.Component {
         private configureTileSprite(node: cc.Node, sprites: cc.SpriteFrame[]): cc.Sprite {
 
                 const sprite = node.addComponent(cc.Sprite);
+                sprite.type = cc.Sprite.Type.SIMPLE;
+                sprite.sizeMode = cc.Sprite.SizeMode.CUSTOM;
                 sprite.node.width = node.width;
                 sprite.node.height = node.height;
                 const randomIndex = Math.floor(Math.random() * sprites.length);
