@@ -118,12 +118,11 @@ export default class GridManager extends cc.Component implements IGridManager{
                 
                 for (let y = this.gridHeight - 1; y >= 0; y--) {
                     if (this.grid[y][x] === null && emptyY === -1) {
-                        emptyY = y; // Нашли пустое место
+                        emptyY = y;
                     }
                     else if (this.grid[y][x] !== null && emptyY !== -1) {
-                        // Перемещаем блок вниз
                         this.moveBlockDown(x, y, emptyY);
-                        emptyY--; // Новое пустое место выше
+                        emptyY--;
                     }
                 }
                 this.generateNewBlocksForColumn(x, emptyY);
@@ -187,6 +186,15 @@ export default class GridManager extends cc.Component implements IGridManager{
         return this.game.getBombBusterActive();
     }
 
+    public bombBusterFire(block:AbstractBlock) {
+
+        const connectedBlocks: AbstractBlock[] = block.getAdjacentBlocks(this.getBombPower(),true,false,false); 
+        block.highlightBlocks(connectedBlocks);
+        block.destroyBlocks(connectedBlocks, null)
+        this.bombBusterFinish(true)
+    
+    }
+
     public bombBusterFinish(isUsed:boolean):void{
         this.game.setBombBusterActive(false);
         this.game.busterBomb.emit('buster-bomb-finish',isUsed)     
@@ -196,6 +204,7 @@ export default class GridManager extends cc.Component implements IGridManager{
         return this.game.getBombPower();
     }
 
+    
 //===========================BOMB BUSTER=========================================
 
 //===========================TELEPORT BUSTER=========================================

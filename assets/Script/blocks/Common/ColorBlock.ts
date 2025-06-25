@@ -11,7 +11,7 @@ export abstract class ColorBlock extends AbstractBlock {
     onBlockClick(): void {
 
         if(this.gridManager.isBombBusterActive()){
-            this.bombBusterFire(this.gridManager.getBombPower())
+            this.gridManager.bombBusterFire(this)
             return
         }
 
@@ -39,7 +39,7 @@ export abstract class ColorBlock extends AbstractBlock {
             .forEach(block => this.findConnected(block, blockClass, visited));
     }
 
-public getAdjacentBlocks(count: number, bombEffect: boolean = false): AbstractBlock[] {
+public getAdjacentBlocks(count: number, bombEffect: boolean = false, rocketEffect: boolean = false, isVertical:boolean = false): AbstractBlock[] {
     if (!this.gridManager) return [];
     
     const directions = [
@@ -49,13 +49,14 @@ public getAdjacentBlocks(count: number, bombEffect: boolean = false): AbstractBl
         { dx: -count, dy: 0 }   
     ];
 
-    // диагонали для bombEffect
+    // диагонали  и центральный блок для для bombEffect
     if (bombEffect) {
         directions.push(
             { dx: count, dy: count },    
             { dx: count, dy: -count },  
             { dx: -count, dy: -count }, 
-            { dx: -count, dy: count }  
+            { dx: -count, dy: count },
+            { dx: 0, dy: 0} 
         );
     }
 
@@ -70,34 +71,6 @@ public getAdjacentBlocks(count: number, bombEffect: boolean = false): AbstractBl
 
     return adjacent;
 }
-
-    protected highlightBlocks(blocks: AbstractBlock[]): void {
-        blocks.forEach((block, index) => {
-            cc.tween(block.node)
-                .delay(index * 0.05)
-                .to(0.1, { scale: 1.2 })
-                .to(0.1, { scale: 1.0 })
-                .start();
-        });
-    }
-
-    protected highlightBombBlocks(blocks: AbstractBlock[]): void {
-        blocks.forEach((block) => {
-            cc.tween(block.node)
-                .to(0.1, { scale: 1.2 })
-                .to(0.1, { scale: 1.0 })
-                .start();
-        });
-    }
-
-    protected bombBusterFire(power:number) {
-
-        const connectedBlocks: AbstractBlock[] = this.getAdjacentBlocks(power,true); 
-        this.highlightBombBlocks(connectedBlocks);
-        this.destroyBlocks(connectedBlocks, null)
-        this.gridManager.bombBusterFinish(true)
-    
-    }
 
     public getCountPoints(): number{
         return this.countPoints;

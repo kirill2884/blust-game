@@ -26,7 +26,6 @@ export default class FinishGame extends cc.Component {
     }
 
     showPopup(message: string = "Game Over", isWin: boolean = false): void {
-        // Убедимся, что popup будет поверх overlay
         this.popupNode.zIndex = this.backgroundOverlay.zIndex + 1;
         
         this.messageLabel.string = message;
@@ -34,12 +33,10 @@ export default class FinishGame extends cc.Component {
         this.backgroundOverlay.active = true;
         
         this.messageLabel.node.color = isWin ? cc.Color.GREEN : cc.Color.RED;
-        
-        // Настройки прозрачности
+    
         this.popupNode.opacity = 255;
-        this.backgroundOverlay.opacity = 160; // Более прозрачный
+        this.backgroundOverlay.opacity = 160;
         
-        // Анимации
         this.popupNode.scale = 0;
         cc.tween(this.backgroundOverlay)
             .to(0.2, { opacity: 160 })

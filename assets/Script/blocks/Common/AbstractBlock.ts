@@ -60,7 +60,7 @@ export abstract class AbstractBlock extends cc.Component {
         
     }
 
-    protected destroyBlocks(blocks: AbstractBlock[], clickedBlock: AbstractBlock): void {
+    public destroyBlocks(blocks: AbstractBlock[], clickedBlock: AbstractBlock): void {
             if (!blocks || blocks.length < 2) return;
 
             blocks.forEach((block, index) => {
@@ -76,6 +76,16 @@ export abstract class AbstractBlock extends cc.Component {
             if (this.gridManager) {               
                 this.gridManager.removeBlocks(blocks, clickedBlock, 10);
             }
+    }
+
+    public highlightBlocks(blocks: AbstractBlock[]): void {
+        blocks.forEach((block, index) => {
+            cc.tween(block.node)
+                .delay(index * 0.05)
+                .to(0.1, { scale: 1.2 })
+                .to(0.1, { scale: 1.0 })
+                .start();
+        });
     }
 
 }

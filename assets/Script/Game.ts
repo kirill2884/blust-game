@@ -37,8 +37,6 @@ export default class Game extends cc.Component {
     @property(GridManager)
     private gridManager: GridManager = null;
 
-    private canvas:cc.Component;
-
     private finishGame: FinishGame = null;
 
     private currentCountMoves: number;
@@ -54,13 +52,10 @@ export default class Game extends cc.Component {
     private bombPower:number = 1;
     
     onLoad() {  
-        const canvasNode = this.node.parent
-        this.canvas = canvasNode.getComponent(cc.Canvas)
-        this.finishGameNode.on('restart-game',this.initGame,this)
-        this.finishGame = this.finishGameNode.getComponent(FinishGame);
-        this.busterManager = this.busters.getComponent(BusterManager) 
-        this.gridManager.onLoad()      
-        this.initGame();   
+        this.gridManager.onLoad()
+        this.busterManager = this.busters.getComponent(BusterManager)     
+        this.initGame(); 
+        this.finishGameNode.on('restart-game',this.initGame,this)  
     }
 
     private initGame(): void {       

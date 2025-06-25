@@ -12,7 +12,6 @@ export default abstract class RocketBlock extends SpecialBlock {
         
         const blocks = [];
         
-        // Получаем всю строку или столбец в зависимости от типа ракет
         for (let i = 0; i < this.gridManager.getGridWidth(); i++) {
             const block = isVertical 
                 ? this.gridManager.getBlockAt(this.gridX, i)

@@ -4,12 +4,15 @@ const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class BusterView extends cc.Component {
+    
+    @property(cc.Node)
+    infoNode:cc.Node = null;
 
-    infoArea:InfoArea = null;
     remainder:number
+    infoArea:InfoArea
 
-    onLoad () {     
-        this.infoArea = this.node.getComponent(InfoArea);  
+    onLoad () {      
+        this.infoArea = this.infoNode.getComponent(InfoArea) 
         this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
     }
 
