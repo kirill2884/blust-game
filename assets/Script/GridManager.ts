@@ -103,7 +103,7 @@ export default class GridManager extends cc.Component implements IGridManager{
                 }
             });
             this.game.checkStatusGame(aggregatePoints);
-            // Обрабатываем падение блоков
+            // падение блоков
             this.processFallingBlocks();  
         }
     

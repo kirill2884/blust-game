@@ -524,12 +524,6 @@
     "tileFactoryNode": {
       "__id__": 13
     },
-    "gameGrid": {
-      "__id__": 8
-    },
-    "explosionEffect": {
-      "__uuid__": "f4b64fd4-fea2-4cad-a077-0591ec2ba443"
-    },
     "gameNode": {
       "__id__": 5
     },

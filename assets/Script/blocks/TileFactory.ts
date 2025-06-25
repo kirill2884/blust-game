@@ -109,8 +109,6 @@ export default class TileFactory extends cc.Component {
             }
 
             const behavior = node.addComponent(componentName) as IBlock;
-                
-            // Общая настройка поведения
             this.configureBlockBehavior(behavior, node);
                 
             return behavior;
