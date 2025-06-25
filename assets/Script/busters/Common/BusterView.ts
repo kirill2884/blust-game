@@ -1,9 +1,10 @@
+import { IBusterView } from "../../interfaces/IBusterView";
 import InfoArea from "../InfoArea";
 
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class BusterView extends cc.Component {
+export default class BusterView extends cc.Component implements IBusterView{
     
     @property(cc.Node)
     infoNode:cc.Node = null;

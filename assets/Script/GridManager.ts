@@ -1,11 +1,11 @@
 import TileFactory from "./blocks/TileFactory";
-import { AbstractBlock } from "./blocks/Common/AbstractBlock";
 import Game from "./Game";
-import { SwappedBloks } from "./interfaces/BlockSoundConfig";
 import { IGridManager } from "./interfaces/IGridManager";
 import { PositionCalculator } from "./Common/PositionCalculator";
 import { SpecialBlock } from "./blocks/Common/SpecialBlock";
 import { IBlock } from "./interfaces/IBlock";
+import { SwappedBloks } from "./types/SwappedBloks";
+import { BlockData } from "./types/BlockData";
 
 const {ccclass, property} = cc._decorator;
 
@@ -24,12 +24,6 @@ export default class GridManager extends cc.Component implements IGridManager{
     @property(cc.Node) 
     tileFactoryNode: cc.Node;
     
-    @property({ type: cc.Node })
-    gameGrid: cc.Node = null;
-
-    @property({ type: cc.Prefab })
-    explosionEffect: cc.Prefab = null;
-
     @property(cc.Node)
     private gameNode: cc.Node;
 
@@ -50,7 +44,7 @@ export default class GridManager extends cc.Component implements IGridManager{
         const pos = this.positionCalculator.calculateGridStartPosition(this.gridWidth, 
                                                             this.gridHeight, 
                                                             this.tileFactory.getTileSize(),
-                                                            this.tileFactory.getTilepadding());
+                                                            this.tileFactory.getTilePadding());
         this.startX = pos.startX;
         this.startY = pos.startY;
         this.game = this.gameNode.getComponent(Game);
@@ -72,7 +66,7 @@ export default class GridManager extends cc.Component implements IGridManager{
 
     public generateGrid(): void {        
         this.grid = [];
-        this.gameGrid.removeAllChildren();
+        this.node.removeAllChildren();
                  
         for (let y = 0; y < this.gridHeight; y++) {
             this.grid[y] = [];
@@ -166,7 +160,7 @@ export default class GridManager extends cc.Component implements IGridManager{
         return this.positionCalculator.getWorldPosition(
             x, y, 
             this.startX, this.startY,
-            this.tileFactory.getTileSize(), this.tileFactory.getTilepadding()
+            this.tileFactory.getTileSize(), this.tileFactory.getTilePadding()
         );
     }
 

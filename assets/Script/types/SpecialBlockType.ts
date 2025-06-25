@@ -1,4 +1,4 @@
-interface SpecialBlockType {
+export type SpecialBlockType = {
     bomb?: boolean;
     power?: number;
     rocket?: boolean;

@@ -155,7 +155,7 @@ export default class TileFactory extends cc.Component {
             return this.tileSize
         }
 
-        public getTilepadding(){
+        public getTilePadding(){
             return this.tilePadding
         }
 

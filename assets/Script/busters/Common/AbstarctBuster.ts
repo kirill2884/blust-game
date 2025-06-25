@@ -1,15 +1,16 @@
+import { IBuster } from "../../interfaces/IBuster";
 import BusterView from "./BusterView";
 
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default abstract class AbstarctBuster extends cc.Component{
+export default abstract class AbstarctBuster extends cc.Component implements IBuster{
 
     @property
-    protected maxCount: number = 3;
+    maxCount: number = 3;
 
-    protected remainder: number;
-    protected view: BusterView;
+    remainder: number;
+    view: BusterView;
 
     onLoad () {       
         this.view = this.node.getComponent(BusterView)
