@@ -53,6 +53,7 @@ export default class Game extends cc.Component {
     
     onLoad() {  
         this.gridManager.onLoad()
+        this.finishGame = this.finishGameNode.getComponent(FinishGame)
         this.busterManager = this.busters.getComponent(BusterManager)     
         this.initGame(); 
         this.finishGameNode.on('restart-game',this.initGame,this)  
@@ -79,7 +80,10 @@ export default class Game extends cc.Component {
     public makeMove(){
         this.currentCountMoves--;
         this.movesTextBlock.string = this.currentCountMoves.toString()
-
+        console.log('--------------');
+        console.log(this.currentPoints);
+        console.log(this.targetPonts);
+        console.log('--------------');
         if(this.currentPoints >= this.targetPonts){
             this.stopGame(true);
         } else if (this.currentCountMoves === 0){

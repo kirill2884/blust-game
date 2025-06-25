@@ -1,9 +1,10 @@
 import GridManager from "../../GridManager";
+import { IBlock } from "../../interfaces/IBlock";
 
 const { ccclass } = cc._decorator;
 
 @ccclass
-export abstract class AbstractBlock extends cc.Component {
+export abstract class AbstractBlock extends cc.Component implements IBlock {
 
     public gridX: number = -1;
     public gridY: number = -1;
@@ -13,7 +14,7 @@ export abstract class AbstractBlock extends cc.Component {
 
     public abstract onBlockClick(): void;
 
-    public abstract getAdjacentBlocks(count: number, bombEffect:boolean, rocketEffect: boolean, isVertical: boolean): AbstractBlock[] 
+    public abstract getAdjacentBlocks(count: number, bombEffect:boolean, rocketEffect: boolean, isVertical: boolean): IBlock[] 
 
     public setGameController(gridManager: GridManager): void {
         this.gridManager = gridManager;
@@ -23,7 +24,7 @@ export abstract class AbstractBlock extends cc.Component {
         this.explosionEffect = effect;
     }
 
-    protected createExplosionAt(position: cc.Vec2): void {
+    public createExplosionAt(position: cc.Vec2): void {
         if (!this.explosionEffect) return;
 
             const parentNode = this.node.parent
@@ -60,7 +61,7 @@ export abstract class AbstractBlock extends cc.Component {
         
     }
 
-    public destroyBlocks(blocks: AbstractBlock[], clickedBlock: AbstractBlock): void {
+    public destroyBlocks(blocks: IBlock[], clickedBlock: IBlock): void {
             if (!blocks || blocks.length < 2) return;
 
             blocks.forEach((block, index) => {
@@ -78,7 +79,7 @@ export abstract class AbstractBlock extends cc.Component {
             }
     }
 
-    public highlightBlocks(blocks: AbstractBlock[]): void {
+    public highlightBlocks(blocks: IBlock[]): void {
         blocks.forEach((block, index) => {
             cc.tween(block.node)
                 .delay(index * 0.05)

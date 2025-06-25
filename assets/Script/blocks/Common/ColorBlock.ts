@@ -1,3 +1,4 @@
+import { IBlock } from "../../interfaces/IBlock";
 import { AbstractBlock } from "./AbstractBlock";
 const { ccclass } = cc._decorator;
 
@@ -39,7 +40,7 @@ export abstract class ColorBlock extends AbstractBlock {
             .forEach(block => this.findConnected(block, blockClass, visited));
     }
 
-public getAdjacentBlocks(count: number, bombEffect: boolean = false, rocketEffect: boolean = false, isVertical:boolean = false): AbstractBlock[] {
+public getAdjacentBlocks(count: number, bombEffect: boolean = false, rocketEffect: boolean = false, isVertical:boolean = false): IBlock[] {
     if (!this.gridManager) return [];
     
     const directions = [
@@ -60,7 +61,7 @@ public getAdjacentBlocks(count: number, bombEffect: boolean = false, rocketEffec
         );
     }
 
-    const adjacent: AbstractBlock[] = [];
+    const adjacent: IBlock[] = [];
     
     directions.forEach(dir => {
         const block = this.gridManager.getBlockAt(this.gridX + dir.dx, this.gridY + dir.dy);

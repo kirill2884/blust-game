@@ -1,12 +1,12 @@
-import { AbstractBlock } from "../blocks/Common/AbstractBlock";
+import { IBlock } from "./IBlock";
 
 export interface IGridManager {
 
     gridWidth: number;
     gridHeight: number;
 
-    getBlockAt(x: number, y: number): AbstractBlock | null;
-    removeBlocks(blocks: AbstractBlock[], clickedBlock:AbstractBlock, priceBlock:number): Promise<void>;
+    getBlockAt(x: number, y: number): IBlock | null;
+    removeBlocks(blocks: IBlock[], clickedBlock:IBlock, priceBlock:number): Promise<void>;
     getGridWidth():number
     getGridHeight():number
 }

@@ -5,6 +5,7 @@ import { SwappedBloks } from "./interfaces/BlockSoundConfig";
 import { IGridManager } from "./interfaces/IGridManager";
 import { PositionCalculator } from "./Common/PositionCalculator";
 import { SpecialBlock } from "./blocks/Common/SpecialBlock";
+import { IBlock } from "./interfaces/IBlock";
 
 const {ccclass, property} = cc._decorator;
 
@@ -38,7 +39,7 @@ export default class GridManager extends cc.Component implements IGridManager{
 
     private swappedBlocks: SwappedBloks = {};
     
-    private grid: AbstractBlock[][] = [];
+    private grid: IBlock[][] = [];
 
     private startX:number
     private startY:number
@@ -81,7 +82,7 @@ export default class GridManager extends cc.Component implements IGridManager{
         }
     }
     
-        public getBlockAt(x: number, y: number): AbstractBlock | null {
+        public getBlockAt(x: number, y: number): IBlock | null {
             if (y >= 0 && y < this.grid.length && x >= 0 && x < this.grid[y].length) {
                 return this.grid[y][x];
             }
@@ -89,7 +90,7 @@ export default class GridManager extends cc.Component implements IGridManager{
         }
     
     
-         public async removeBlocks(blocks: AbstractBlock[], clickedBlock:AbstractBlock, priceBlock:number = 0): Promise<void> {
+         public async removeBlocks(blocks: IBlock[], clickedBlock:IBlock, priceBlock:number = 0): Promise<void> {
             if(blocks.length < 2) return
             const spetialEffect = clickedBlock instanceof SpecialBlock
             let aggregatePoints:number = 0
@@ -186,9 +187,9 @@ export default class GridManager extends cc.Component implements IGridManager{
         return this.game.getBombBusterActive();
     }
 
-    public bombBusterFire(block:AbstractBlock) {
+    public bombBusterFire(block:IBlock) {
 
-        const connectedBlocks: AbstractBlock[] = block.getAdjacentBlocks(this.getBombPower(),true,false,false); 
+        const connectedBlocks: IBlock[] = block.getAdjacentBlocks(this.getBombPower(),true,false,false); 
         block.highlightBlocks(connectedBlocks);
         block.destroyBlocks(connectedBlocks, null)
         this.bombBusterFinish(true)
@@ -231,7 +232,7 @@ export default class GridManager extends cc.Component implements IGridManager{
         this.clearSwappedBlocks();         
     }
 
-    public teleportBusterFire(block:AbstractBlock){
+    public teleportBusterFire(block:IBlock){
 
         const currentSelection = this.getSwappedBlocks();
         
@@ -248,7 +249,7 @@ export default class GridManager extends cc.Component implements IGridManager{
 
     }
 
-    private startProcessTeleport(block:AbstractBlock){
+    private startProcessTeleport(block:IBlock){
         const currentSelection = this.getSwappedBlocks();
         currentSelection.block2 = block
         this.swapBlocks(currentSelection);
@@ -283,7 +284,7 @@ export default class GridManager extends cc.Component implements IGridManager{
         return true;
     }
 
-    private getBlockData(block: AbstractBlock): BlockData {
+    private getBlockData(block: IBlock): BlockData {
         return {
             position: block.node.position.clone(),
             gridX: block.gridX,
@@ -298,7 +299,7 @@ export default class GridManager extends cc.Component implements IGridManager{
         this.grid[block2.gridY][block2.gridX] = block1;
     }
 
-    private swapBlockProperties(block: AbstractBlock, targetData: BlockData): void {
+    private swapBlockProperties(block: IBlock, targetData: BlockData): void {
         block.node.position = targetData.position;
         block.gridX = targetData.gridX;
         block.gridY = targetData.gridY;
@@ -321,7 +322,7 @@ export default class GridManager extends cc.Component implements IGridManager{
         this.swappedBlocks = { block1: null, block2: null };
     }
 
-    private normalizeBlock(block: AbstractBlock){
+    private normalizeBlock(block: IBlock){
         if(block){
             cc.tween(block.node).to(0.1, { scale: 1.0 }).start();
         }  

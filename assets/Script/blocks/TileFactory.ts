@@ -1,7 +1,7 @@
 import { PositionCalculator } from "../Common/PositionCalculator";
 import GridManager from "../GridManager";
 import { IGridManager } from "../interfaces/IGridManager";
-import { AbstractBlock } from "./Common/AbstractBlock";
+import { IBlock } from "../interfaces/IBlock";
 
 const {ccclass, property} = cc._decorator;
 
@@ -41,7 +41,7 @@ export default class TileFactory extends cc.Component {
         this.startY = pos.startY;
     }
 
-    public createTile(x: number, y: number, special:boolean): AbstractBlock {
+    public createTile(x: number, y: number, special:boolean): IBlock {
             
                 const tileNode = this.createBaseTileNode(x, y);
                 const sprite = this.configureTileSprite(tileNode, special ? this.specialBlockSprites : this.blockSprites);
@@ -83,7 +83,7 @@ export default class TileFactory extends cc.Component {
             return sprite;
         }
 
-        public createSpecialTile(clickedBlock: AbstractBlock): AbstractBlock {
+        public createSpecialTile(clickedBlock: IBlock): IBlock {
             const tileNode = this.createBaseTileNode(
                 clickedBlock.gridX, 
                 clickedBlock.gridY, 
@@ -100,7 +100,7 @@ export default class TileFactory extends cc.Component {
             return behavior;
         }
 
-        private addBlockBehavior(node: cc.Node, spriteName: string, isSpecial: boolean = false): AbstractBlock {
+        private addBlockBehavior(node: cc.Node, spriteName: string, isSpecial: boolean = false): IBlock {
             const componentName = this.getBehaviorComponent(spriteName, isSpecial);
 
             if (!componentName) {
@@ -108,7 +108,7 @@ export default class TileFactory extends cc.Component {
                  return null;
             }
 
-            const behavior = node.addComponent(componentName) as AbstractBlock;
+            const behavior = node.addComponent(componentName) as IBlock;
                 
             // Общая настройка поведения
             this.configureBlockBehavior(behavior, node);
@@ -116,7 +116,7 @@ export default class TileFactory extends cc.Component {
             return behavior;
         }
 
-        private configureBlockBehavior(behavior: AbstractBlock, node: cc.Node): void {
+        private configureBlockBehavior(behavior: IBlock, node: cc.Node): void {
             behavior.setGameController(this.gameGridNode.getComponent(GridManager));
                 
             if (this.explosionEffect) {

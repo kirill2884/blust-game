@@ -1,4 +1,4 @@
-import { AbstractBlock } from "../Common/AbstractBlock";
+import { IBlock } from "../../interfaces/IBlock";
 import { SpecialBlock } from "../Common/SpecialBlock";
 
 
@@ -7,7 +7,7 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default abstract class RocketBlock extends SpecialBlock {
 
-        public getAdjacentBlocks(count: number = 1, bombEffect: boolean = false, rocketEffect: boolean = true, isVertical: boolean = false ): AbstractBlock[] {
+        public getAdjacentBlocks(count: number = 1, bombEffect: boolean = false, rocketEffect: boolean = true, isVertical: boolean = false ): IBlock[] {
         if (!this.gridManager) return [];
         
         const blocks = [];
