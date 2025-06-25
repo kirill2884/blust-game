@@ -3220,7 +3220,7 @@
       "__id__": 5
     },
     "_enabled": true,
-    "countMoves": 30,
+    "countMoves": 15,
     "targetPonts": 2000,
     "finishGameNode": {
       "__id__": 55
