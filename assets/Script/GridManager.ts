@@ -4,7 +4,7 @@ import { SwappedBloks } from "./types/SwappedBloks";
 import { BlockData } from "./types/BlockData";
 import { IGridManager } from "./Interfaces/IGridManager";
 import TileFactory from "./Blocks/TileFactory";
-import { IBlock } from "./blocks/Interfaces/IBlock";
+import { IBlock } from "./Blocks/Interfaces/IBlock";
 import { SpecialBlock } from "./Blocks/Common/SpecialBlock";
 
 const {ccclass, property} = cc._decorator;
