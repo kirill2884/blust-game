@@ -1,4 +1,4 @@
-import { IBlock } from "../../interfaces/IBlock";
+import { IBlock } from "../Interfaces/IBlock";
 import { AbstractBlock } from "./AbstractBlock";
 const { ccclass } = cc._decorator;
 

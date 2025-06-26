@@ -1,5 +1,5 @@
-import { IBlock } from "../../interfaces/IBlock";
 import { SpecialBlock } from "../Common/SpecialBlock";
+import { IBlock } from "../Interfaces/IBlock";
 
 const {ccclass, property} = cc._decorator;
 

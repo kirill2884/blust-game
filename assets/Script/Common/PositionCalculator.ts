@@ -1,3 +1,5 @@
+import { Position } from "../types/Position";
+
 const {ccclass} = cc._decorator;
 
 @ccclass

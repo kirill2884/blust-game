@@ -1,8 +1,5 @@
 const {ccclass} = cc._decorator;
 
-/**
- * Интерфейс для отображения бустера
- */
 export interface IBusterView {
     infoNode: cc.Node;
     remainder: number;
@@ -11,4 +8,5 @@ export interface IBusterView {
     updateRemainder(remainder: number): void;
     onTouchStart(): void;
     onDestroy(): void;
+    destroy(): void;
 }

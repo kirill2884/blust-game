@@ -1,4 +1,4 @@
-import { IBlock } from "./IBlock";
+import { IBlock } from "../Blocks/Interfaces/IBlock";
 
 export interface IGridManager {
 

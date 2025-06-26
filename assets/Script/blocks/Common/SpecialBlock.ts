@@ -1,4 +1,7 @@
+import { SpecialBlockType } from "../../types/SpecialBlockType";
+import { IBlock } from "../Interfaces/IBlock";
 import { AbstractBlock } from "./AbstractBlock";
+
 const { ccclass } = cc._decorator;
 
 @ccclass
@@ -16,7 +19,7 @@ export abstract class SpecialBlock extends AbstractBlock {
         this.scheduleOnce(() => this.destroyBlocks(connectedBlocks, this), 0.5);
     }
 
-    private  highlightBloks(blocks: AbstractBlock[]): void{
+    private  highlightBloks(blocks: IBlock[]): void{
         blocks.forEach((block,index) => {
             cc.tween(block.node).delay(0.05).to(0.1, {scale:1.2}).to(0.1,{scale:1.0}).start()
         })

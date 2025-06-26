@@ -1,4 +1,4 @@
-import GridManager from "../GridManager";
+import { IGridManager } from "../../Interfaces/IGridManager";
 
 const { ccclass } = cc._decorator;
 
@@ -11,7 +11,7 @@ export interface IBlock {
     onBlockClick(): void;
     getAdjacentBlocks(count: number, bombEffect: boolean, rocketEffect: boolean, isVertical: boolean): IBlock[];
 
-    setGameController(gridManager: GridManager): void;
+    setGameController(gridManager: IGridManager): void;
     setExplosionEffect(effect: cc.Prefab): void;
     createExplosionAt(position: cc.Vec2): void;
     destroyBlocks(blocks: IBlock[], clickedBlock: IBlock): void;

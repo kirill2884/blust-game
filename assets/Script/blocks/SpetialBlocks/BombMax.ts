@@ -1,3 +1,4 @@
+import { SpecialBlockType } from "../../types/SpecialBlockType";
 import BombBlock from "./BombBlock";
 
 const {ccclass, property} = cc._decorator;

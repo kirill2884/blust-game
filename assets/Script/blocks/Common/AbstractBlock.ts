@@ -1,5 +1,5 @@
 import GridManager from "../../GridManager";
-import { IBlock } from "../../interfaces/IBlock";
+import { IBlock } from "../Interfaces/IBlock";
 
 const { ccclass } = cc._decorator;
 

@@ -1,5 +1,5 @@
-import { IBusterView } from "../../interfaces/IBusterView";
 import InfoArea from "../InfoArea";
+import { IBusterView } from "../Interfaces/IBusterView";
 
 const {ccclass, property} = cc._decorator;
 

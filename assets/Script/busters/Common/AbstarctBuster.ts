@@ -1,4 +1,5 @@
-import { IBuster } from "../../interfaces/IBuster";
+import { IBuster } from "../Interfaces/IBuster";
+import { IBusterView } from "../Interfaces/IBusterView";
 import BusterView from "./BusterView";
 
 const {ccclass, property} = cc._decorator;
@@ -10,7 +11,7 @@ export default abstract class AbstarctBuster extends cc.Component implements IBu
     maxCount: number = 3;
 
     remainder: number;
-    view: BusterView;
+    view: IBusterView;
 
     onLoad () {       
         this.view = this.node.getComponent(BusterView)
@@ -28,7 +29,7 @@ export default abstract class AbstarctBuster extends cc.Component implements IBu
         this.view.destroy();
     }
 
-    initBuster(view:BusterView): void {
+    initBuster(view:IBusterView): void {
         this.remainder = this.maxCount;
         view.updateRemainder(this.remainder);
     }

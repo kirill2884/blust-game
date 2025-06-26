@@ -1,11 +1,11 @@
-import TileFactory from "./blocks/TileFactory";
 import Game from "./Game";
-import { IGridManager } from "./interfaces/IGridManager";
 import { PositionCalculator } from "./Common/PositionCalculator";
-import { SpecialBlock } from "./blocks/Common/SpecialBlock";
-import { IBlock } from "./interfaces/IBlock";
 import { SwappedBloks } from "./types/SwappedBloks";
 import { BlockData } from "./types/BlockData";
+import { IGridManager } from "./Interfaces/IGridManager";
+import TileFactory from "./Blocks/TileFactory";
+import { IBlock } from "./blocks/Interfaces/IBlock";
+import { SpecialBlock } from "./Blocks/Common/SpecialBlock";
 
 const {ccclass, property} = cc._decorator;
 

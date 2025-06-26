@@ -1,7 +1,7 @@
 import { PositionCalculator } from "../Common/PositionCalculator";
 import GridManager from "../GridManager";
-import { IGridManager } from "../interfaces/IGridManager";
-import { IBlock } from "../interfaces/IBlock";
+import { IGridManager } from "../Interfaces/IGridManager";
+import { IBlock } from "./Interfaces/IBlock";
 
 const {ccclass, property} = cc._decorator;
 

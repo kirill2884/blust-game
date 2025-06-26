@@ -1,4 +1,4 @@
-import { BusterManager } from "./busters/Common/BusterManager";
+import { BusterManager } from "./Busters/Common/BusterManager";
 import FinishGame from "./FinishGame";
 import GridManager from "./GridManager";
 
@@ -80,10 +80,6 @@ export default class Game extends cc.Component {
     public makeMove(){
         this.currentCountMoves--;
         this.movesTextBlock.string = this.currentCountMoves.toString()
-        console.log('--------------');
-        console.log(this.currentPoints);
-        console.log(this.targetPonts);
-        console.log('--------------');
         if(this.currentPoints >= this.targetPonts){
             this.stopGame(true);
         } else if (this.currentCountMoves === 0){
