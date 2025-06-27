@@ -20,7 +20,7 @@ export abstract class SpecialBlock extends AbstractBlock {
     }
 
     private  highlightBloks(blocks: IBlock[]): void{
-        blocks.forEach((block,index) => {
+        blocks.forEach((block) => {
             cc.tween(block.node).delay(0.05).to(0.1, {scale:1.2}).to(0.1,{scale:1.0}).start()
         })
     }

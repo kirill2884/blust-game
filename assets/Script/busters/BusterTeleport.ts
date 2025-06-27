@@ -1,6 +1,6 @@
 import AbstarctBuster from "./Common/AbstarctBuster";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass } = cc._decorator;
 
 @ccclass
 export default class BusterTeleport extends AbstarctBuster {

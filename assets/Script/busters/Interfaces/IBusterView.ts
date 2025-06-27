@@ -1,4 +1,3 @@
-const {ccclass} = cc._decorator;
 
 export interface IBusterView {
     infoNode: cc.Node;

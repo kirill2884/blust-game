@@ -1,7 +1,5 @@
 import { IBusterView } from "./IBusterView";
 
-const {ccclass} = cc._decorator;
-
 export interface IBuster {
     maxCount: number;
     remainder: number;

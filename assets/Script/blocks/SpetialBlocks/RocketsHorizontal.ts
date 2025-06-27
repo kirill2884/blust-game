@@ -1,7 +1,7 @@
 import { SpecialBlockType } from "../../types/SpecialBlockType";
 import RocketBlock from "./RocketBlock";
 
-const {ccclass, property} = cc._decorator;
+const {ccclass} = cc._decorator;
 
 @ccclass
 export default class RocketsHorizontal extends RocketBlock {

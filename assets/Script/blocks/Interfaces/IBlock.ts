@@ -1,7 +1,5 @@
 import { IGridManager } from "../../Interfaces/IGridManager";
 
-const { ccclass } = cc._decorator;
-
 export interface IBlock {
 
     gridX: number;

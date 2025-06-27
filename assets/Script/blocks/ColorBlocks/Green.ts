@@ -1,7 +1,7 @@
 import { ColorBlock } from "../Common/ColorBlock";
 
 
-const {ccclass, property} = cc._decorator;
+const { ccclass } = cc._decorator;
 
 @ccclass
 export default class Green extends ColorBlock {

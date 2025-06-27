@@ -1,7 +1,7 @@
 import { SpecialBlock } from "../Common/SpecialBlock";
 import { IBlock } from "../Interfaces/IBlock";
 
-const {ccclass, property} = cc._decorator;
+const {ccclass} = cc._decorator;
 
 @ccclass
 export default abstract class BombBlock extends SpecialBlock {
